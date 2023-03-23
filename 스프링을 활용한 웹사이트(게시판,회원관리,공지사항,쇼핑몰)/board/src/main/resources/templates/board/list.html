@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	<div class="container">
+		<div align="right">
+			<a th:if="${session.memberId!=null}" href="/member/logout">Logout</a><br>
+		</div>
+		<div align="right" th:if="${session.memberId!=null}">
+			<button type="button" class="btn btn-primary"
+				th:onclick="location.href='/member/info'">내 정보</button>
+		</div>
+		<div align="left">
+			<a href="/member/home">Member</a><br>
+			<a href="/board/list">Board</a><br>
+			<a href="/shop/home">Shop</a><br>
+			<a href="/notice/list">Notice</a>
+		</div>
+		<h1 class="text-primary">
+			<a href="/board/paging/session/reset">Board List View</a>
+		</h1>
+		<hr>
+		<p th:text="|전체 게시글 수 : ${count}|"></p>
+		<form action="">
+			<div align="left">
+				<select name="maxResult">
+					<option th:if="${maxResult.equals(10)}" selected="selected">10</option>
+					<option th:if="${!maxResult.equals(10)}">10</option>
+					<option th:if="${maxResult.equals(30)}" selected="selected">30</option>
+					<option th:if="${!maxResult.equals(30)}">30</option>
+					<option th:if="${maxResult.equals(50)}" selected="selected">50</option>
+					<option th:if="${!maxResult.equals(50)}">50</option>
+				</select>
+			</div>
+			<div align="left">
+				<select name="sort">
+					<option th:if="${sort.equals('id')}" selected="selected" th:text="|최신 순|"></option>
+					<option th:if="${!sort.equals('id')}" th:text="|최신 순|"></option>
+					<option th:if="${sort.equals('readCount')}" selected="selected" th:text="|조회수 순|"></option>
+					<option th:if="${!sort.equals('readCount')}" th:text="|조회수 순|"></option>
+					<option th:if="${sort.equals('likes')}" selected="selected" th:text="|좋아요 순|"></option>
+					<option th:if="${!sort.equals('likes')}" th:text="|좋아요 순|"></option>
+				</select>
+			</div>
+			<div align="right">
+				<select name="field" style="height: 25px">
+					<option th:if="${field.equals('subject')}" selected="selected">제목</option>
+					<option th:if="${!field.equals('subject')}">제목</option>
+					<option th:if="${field.equals('writer')}" selected="selected">작성자</option>
+					<option th:if="${!field.equals('writer')}">작성자</option>
+					<option th:if="${field.equals('content')}" selected="selected">내용</option>
+					<option th:if="${!field.equals('content')}">내용</option>
+					<option th:if="${field.equals('subjectAndContent')}"
+						selected="selected">제목+내용</option>
+					<option th:if="${!field.equals('subjectAndContent')}">제목+내용</option>
+					<option th:if="${field.equals('subjectAndWriter')}"
+						selected="selected">제목+작성자</option>
+					<option th:if="${!field.equals('subjectAndWriter')}">제목+작성자</option>
+					<option th:if="${field.equals('contentAndWriter')}"
+						selected="selected">내용+작성자</option>
+					<option th:if="${!field.equals('contentAndWriter')}">내용+작성자</option>
+					<option th:if="${field.equals('subjectAndContentAndWriter')}"
+						selected="selected">제목+내용+작성자</option>
+					<option th:if="${!field.equals('subjectAndContentAndWriter')}">제목+내용+작성자</option>
+				</select> <input type="text" name="query" th:value="${query}">
+				<button type="submit" class="btn btn-primary" th:text="검색"></button>
+			</div>
+		</form>
+		<table class="table table-striped">
+			<tr>
+				<th>작성자</th>
+				<th>제목</th>
+				<th>작성날짜</th>
+				<th>조회수</th>
+			</tr>
+			<tr>
+				<th colspan="4" th:if="${count==0}">검색한 결과가 없습니다.</th>
+			</tr>
+			<th:block th:each="board:${list}">
+				<tr>
+					<td th:text="${board.writer}"></td>
+					<td><a
+						th:href="|/board/board/${board.id}?page=${page}|"
+						th:text="${board.subject}"></a></td>
+					<td th:text="${board.inputDate}"></td>
+					<td th:text="${board.readCount}"></td>
+				</tr>
+				<tr th:each="ac:${adminComments}">
+					<td th:if="${board.id.equals(ac.boardId)}" th:text="|  ☞  관리자|"></td>
+					<td th:if="${board.id.equals(ac.boardId)}">
+						<a th:href="|/adminComment/adminComment/${ac.id}|" th:text="|${ac.subject}(관리자 답글)|"></a>
+					</td>
+					<td th:if="${board.id.equals(ac.boardId)}" th:text="${#dates.format(ac.inputDate,'yyyy-MM-dd')}"></td>
+					<td th:if="${board.id.equals(ac.boardId)}"></td>
+				</tr>
+			</th:block>
+		</table>
+		<div align="center">
+			<p>
+				<button class="btn btn-primary btn-xs" th:if="${page!=1}" th:onclick="location.href='/board/list?page=1'" th:text="《"
+					type="button">
+				</button>
+				<button class="btn btn-primary btn-xs" th:if="${firstPage-1>0}" th:onclick="|location.href='/board/list?page=${firstPage-1}'|" th:text="〈"
+					type="button">
+				</button>
+				<th:block th:each="num:${#numbers.sequence(firstPage,lastPage)}">
+					<a th:if="${page!=num}"
+						th:href="|/board/list?page=${num}|"
+						th:text="|${num} |"></a>
+					<th:block th:if="${page==num}" th:text="|${num} |"></th:block>
+				</th:block>
+				<button class="btn btn-primary btn-xs" th:if="${lastPage<totalPage}" th:onclick="|location.href='/board/list?page=${lastPage+1}'|" th:text="〉"
+					type="button">
+				</button>
+				<button class="btn btn-primary btn-xs" th:if="${page!=totalPage}" th:onclick="|location.href='/board/list?page=${totalPage}'|" th:text="》"
+					type="button">
+				</button>
+			</p>
+		</div>
+		<div align="right" th:text="|현재 페이지 : ${page} / ${totalPage}|">
+
+		</div>
+		<button type="button" class="btn btn-primary" th:text="글쓰기"
+			th:onclick="|location.href='/board/reg'|"></button>
+	</div>
+</body>
+</html>

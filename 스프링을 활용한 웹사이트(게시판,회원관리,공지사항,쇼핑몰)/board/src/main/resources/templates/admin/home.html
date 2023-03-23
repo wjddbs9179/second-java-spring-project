@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Admin Home View</title>
+</head>
+<body>
+	<div class="container">
+		<div align="right">
+			<a th:if="${session.memberId!=null}" href="/member/logout">Logout</a><br>
+			<div align="right" th:if="${session.memberId!=null}">
+				<button type="button" class="btn btn-primary"
+					th:onclick="location.href='/member/info'">내 정보</button>
+			</div>
+		</div>
+		<div align="left">
+			<a href="/member/home">Member</a><br> <a href="/board/list">Board</a><br>
+			<a href="/shop/home">Shop</a><br> <a href="/notice/list">Notice</a>
+		</div>
+		<h1 class="text-primary">Admin Home View</h1>
+		<hr>
+		<th:block th:if="${session.memberId!=null}">
+			<h3>
+				<label class="text-primary" th:text="|${userName}님 환영합니다.|"></label>
+			</h3>
+			<a class="btn btn-primary" href="/admin/sellerList">판매자 리스트</a>
+			<a class="btn btn-primary" href="/admin/seller/reg/list">판매자 등록
+				리스트</a>
+			<br>
+
+		</th:block>
+		<hr>
+		<h4 class="text-warning">공지사항</h4>
+		<hr>
+		<div align="right">
+			<button type="button" th:onclick="location.href='/notice/list'"
+				class="btn btn-primary" th:text="더보기"></button>
+		</div>
+		<table class="table">
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>날짜</th>
+				<th>조회수</th>
+			</tr>
+			<tr th:each="notice:${noticeList}">
+				<td th:text="${notice.id}"></td>
+				<td><a th:href="|/notice/${notice.id}|"
+					th:text="${notice.subject}"></a></td>
+				<td th:text="${#dates.format(notice.inputDate,'yyyy-MM-dd HH:mm')}"></td>
+				<td th:text="${notice.readCount}"></td>
+			</tr>
+		</table>
+		<hr>
+		<div align="left">
+			<button type="button" class="btn btn-warning"
+				th:onclick="location.href='/admin/notice/reg'" th:text="|공지사항 등록|"></button>
+		</div>
+		<div align="right">
+			<a th:if="${session.memberId!=null&&!session.isSeller}"
+				class="btn btn-warning" href="/admin/seller/reg">판매자 등록</a>
+		</div>
+
+	</div>
+</body>
+</html>

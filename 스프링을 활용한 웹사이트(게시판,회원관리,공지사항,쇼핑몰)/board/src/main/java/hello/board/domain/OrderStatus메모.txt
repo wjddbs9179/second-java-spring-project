@@ -1,0 +1,8 @@
+주문접수: received
+결제대기: pending
+결제완료: completed
+상품준비중: preparing
+배송중: Shipped
+배송완료: Delivered
+취소요청: Cancel_request
+취소완료: Cancelled

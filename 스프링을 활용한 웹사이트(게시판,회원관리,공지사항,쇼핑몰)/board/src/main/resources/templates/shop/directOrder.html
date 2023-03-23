@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Direct Order View</title>
+</head>
+<body>
+	<div class="container">
+		<h1 class="text-primary">Direct Order View</h1>
+		<hr>
+		<form action="" method="post" th:object="${form}">
+			<label>배송 받을 주소</label>
+			<div>
+				<input type="text" th:field="*{address}">
+			</div>
+			<label>연락처</label>
+			<div>
+				<input type="text" th:field="*{phone}">
+			</div>
+			<label>수량</label>
+			<div>
+				<input type="text" th:field="*{quantity}">
+			</div>
+			<hr>
+			<button class="btn btn-success" type="submit" th:text="결제하기"></button>
+			<button class="btn btn-warning" type="button" th:onclick="history.back();" th:text="취소"></button>
+		</form>
+	</div>
+</body>
+</html>

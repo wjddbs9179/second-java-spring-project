@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>My Cart View</title>
+</head>
+<body>
+	<div class="container">
+		<h1 class="text-primary">My Cart View</h1>
+		<hr>
+		<table class="table">
+			<tr>
+				<th>상품 명</th>
+				<th>수량</th>
+				<th></th>
+			</tr>
+			<tr th:each="cart:${myCart}">
+				<td><a th:href="|/shop/product/${cart.product.id}|" th:text="${cart.product.name}"></a></td>
+				<td th:text="${cart.quantity}"></td>
+				<th>
+					<a th:href="|/shop/cart/delete/${cart.id}|" class="btn btn-danger" th:text="삭제"></a>
+				</th>
+			</tr>
+		</table>
+		<a class="btn btn-primary" href="/shop/cart/order">일괄 구매</a>
+		<hr>
+		<a class="btn btn-primary" href="/shop/home">상품 목록</a>
+	</div>
+</body>
+</html>

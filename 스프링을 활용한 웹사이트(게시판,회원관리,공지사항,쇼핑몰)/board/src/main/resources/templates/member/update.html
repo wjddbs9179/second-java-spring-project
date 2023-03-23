@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+.field-error {
+	color: red;
+}
+
+.field-error-input {
+	border-color: red;
+}
+</style>
+	
+<meta charset="UTF-8">
+<title>Member Update View</title>
+</head>
+<body>
+	<div class="container">
+		<h1 class="text-primary">Member Update View</h1>
+		<hr>
+		<form action="" th:object="${form}" method="post">
+		<table class="table">
+			<tr>
+				<th>이름</th>
+				<td>
+				<input type="text" th:field="*{userName}" th:errorclass="field-error-input">
+				<div class="field-error" th:errors="*{userName}">
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<th>email</th><td><input type="email" th:field="*{email}" th:errorclass="field-error-input">
+				<div class="field-error" th:errors="*{email}">
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<th>새로운 비밀번호</th><td><input type="password" th:field="*{password}" th:value="*{password}" th:errorclass="field-error-input">
+				<div class="field-error" th:errors="*{password}">
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<th colspan="2">
+					<button type="submit" class="btn btn-success" th:text="수정"></button>
+					<button type="button" class="btn btn-warning" th:text="돌아가기" th:onclick="location.href='/member/home'"></button>
+				</th>
+			</tr>
+		</table>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+.field-error {
+	color: red;
+}
+
+.field-error-textarea {
+	border-color: red;
+}
+</style>
+	
+<meta charset="UTF-8">
+<title>Update Form View</title>
+</head>
+<body>
+	<div class="container">
+		<h1 class="text-primary">Update Form View</h1>
+		<hr>
+		<form action="" method="post" th:object="${board}">
+			<table class="table table-condensed">
+				<tr>
+					<th class="active text-primary">ID</th>
+					<td class="info"><input class="text-primary" type="number"
+						th:field="*{id}" disabled="disabled"></td>
+				</tr>
+				<tr>
+					<th class="warning">SUBJECT</th>
+					<td class="danger"><input type="text" th:field="*{subject}"
+						readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th class="success">WRITER</th>
+					<td class="warning"><input type="text" th:field="*{writer}"
+						readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th class="info">CONTENT</th>
+					<td class="success"><textarea rows="25" cols="85"
+							th:field="*{content}" th:errorclass="field-error-textarea"></textarea>
+							<div class="field-error" th:errors="*{content}"></div>
+					</td>
+				</tr>
+				<tr>
+					<th class="primary">PASSWORD</th>
+					<td class="primary"><input type="password" name="checkPw"></td>
+				</tr>
+				<tr>
+					<th colspan="2">
+						<button th:text="수정" type="submit" class="btn btn-success"></button>
+						<button th:text="취소" type="button" class="btn btn-warning" th:onclick="history.back();"></button>
+					</th>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

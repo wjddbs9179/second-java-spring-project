@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Member Info View</title>
+</head>
+<body>
+	<div class="container">
+		<h1 class="text-primary">Member Info View</h1>
+		<hr>
+		<table class="table table-dark table-striped table-sm">
+			<tr class="table-info">
+				<th><label>아이디</label></th>
+				<td><div>
+						<input type="text" th:value="${member.userId}" disabled="disabled">
+					</div></td>
+			</tr>
+			<tr>
+				<th><label>이름</label></th>
+				<td><div>
+						<input type="text" th:value="${member.userName}"
+							disabled="disabled">
+					</div></td>
+			</tr>
+			<tr>
+				<th><label>email</label></th>
+				<td>
+					<div>
+						<input type="text" th:value="${member.email}" disabled="disabled">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th colspan="2">
+					<button type="button" class="btn btn-primary" th:text="정보수정" th:onclick="location.href='/member/update/check'"></button>
+					<button type="button" class="btn btn-primary" th:text="회원탈퇴" th:onclick="location.href='/member/drop'"></button>
+					<button type="button" class="btn btn-warning" th:text="돌아가기" th:onclick="location.href='/member/home'"></button>
+				</th>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

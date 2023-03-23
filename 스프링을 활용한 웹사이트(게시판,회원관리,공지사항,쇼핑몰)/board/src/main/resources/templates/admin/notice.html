@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Notice Detail View</title>
+</head>
+<body>
+	<div class="container">
+		<h1 class="text-primary">Notice Detail View</h1>
+		<hr>
+		<div>
+			<label class="text-warning" th:text="제목"></label>
+			<div th:text="${notice.subject}"></div>
+		</div>
+		<hr>
+		<div>
+			<label class="text-warning" th:text="날짜"></label>
+			<div th:text="${#dates.format(notice.inputDate,'yyyy-MM-dd HH:mm')}"></div>
+		</div>
+		<hr>
+		<div>
+			<label class="text-warning" th:text="조회수"></label>
+			<div th:text="${notice.readCount}"></div>
+		</div>
+		<hr>
+		<div>
+			<label class="text-warning" th:text="내용"></label>
+		</div>
+		<div>
+			<div style="width: 300px; height: 300px;" th:text="${notice.content}"></div>
+		</div>
+		<hr>
+		<div th:if="${session.isAdmin}">
+			<button type="button" class="btn btn-warning" th:text="수정" th:onclick="|location.href='/notice/update/${notice.id}'|"></button>
+			<button type="button" class="btn btn-warning" th:text="삭제" th:onclick="|location.href='/notice/delete/${notice.id}'|"></button>
+			<hr>
+		</div>
+		<button type="button" class="btn btn-primary" th:text="공지사항목록" th:onclick="location.href='/notice/list'"></button>
+	</div>
+</body>
+</html>

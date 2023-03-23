@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Comment Delete Success View</title>
+</head>
+<body>
+<script th:inline="javascript">
+    alert('삭제되었습니다.');
+    /* 아래 URL 부분에서 변수를 평가하도록 작성 */
+    /* th:href를 사용하여 URL에 변수값을 넣을 수 있도록 함 */
+    
+	var field = /*<![CDATA[*/ [[${field}]]; /*]]>*/
+	var query = /*<![CDATA[*/ [[${query}]]; /*]]>*/
+    
+    window.location.href = 
+    	/*<![CDATA[*/ '/board/board/[[${boardId}]]?page=[[${page}]]&maxResult=[[${maxResult}]]&field='+field+'&query='+query+'' /*]]>*/
+</script>
+</body>
+</html>

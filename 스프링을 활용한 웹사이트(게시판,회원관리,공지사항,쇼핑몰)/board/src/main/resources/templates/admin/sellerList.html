@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Seller List View</title>
+</head>
+<body>
+<div class="container">
+<h1 class="text-primary">Seller List View</h1>
+<hr>
+<table class="table">
+	<tr>
+		<th>회원번호</th>
+		<th>이름</th>
+		<th>전화번호</th>
+		<th>주소</th>
+		<th></th>
+	</tr>
+	<tr th:each="member:${sellerList}">
+		<td th:text="${member.id}"></td>
+		<td th:text="${member.userName}"></td>
+		<td th:text="${member.phone}"></td>
+		<td th:text="${member.address}"></td>
+		<th><a th:href="|/admin/seller/cancel/${member.id}|" class="btn btn-danger" th:text="|판매자 취소|"></a></th>
+	</tr>
+</table>
+<a href="/member/home" class="btn btn-warning">돌아가기</a>
+</div>
+</body>
+</html>

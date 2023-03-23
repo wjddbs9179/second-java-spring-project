@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>My Order View</title>
+</head>
+<body>
+<div class="container">
+<h1 class="text-primary">My Product Orders View</h1>
+<hr>
+<table class="table">
+	<tr>
+		<th>#</th>
+		<th>상품명</th>
+		<th>수량</th>
+		<th>금액</th>
+		<th>주문상태</th>
+		<th></th>
+	</tr>
+	<tr th:each="order:${orders}">
+		<td><a class="btn btn-info" th:href="|/shop/order/info/${order.id}|" th:text="주문상세"></a></td>
+		<td><a th:href="|/shop/product/${order.productId}|" th:text="${order.productName}"></a></td>
+		<td th:text="${order.quantity}"></td>
+		<td th:text="${#numbers.formatInteger(order.totalPrice,3,'COMMA')}"></td>
+		<td th:text="${order.status.korName}"></td>
+		<td>
+			<a th:if="${order.status.korName.equals('취소요청')}" th:href="|/shop/order/cancel/${order.id}|" class="btn btn-primary" th:text="환불"></a>
+			<a th:if="${order.status.korName.equals('결제완료')}" th:href="|/shop/order/received/${order.id}|" class="btn btn-primary" th:text="주문접수"></a>
+			<a th:if="${order.status.korName.equals('주문접수')}" th:href="|/shop/order/preparing/${order.id}|" class="btn btn-primary" th:text="배송준비"></a>
+			<a th:if="${order.status.korName.equals('상품준비중')}" th:href="|/shop/order/shipped/${order.id}|" class="btn btn-primary" th:text="배송시작"></a>
+		</td>
+	</tr>
+</table>
+<a href="/shop/home" class="btn btn-warning">뒤로가기</a>
+</div>
+</body>
+</html>

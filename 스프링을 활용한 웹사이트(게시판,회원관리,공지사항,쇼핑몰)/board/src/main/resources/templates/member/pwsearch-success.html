@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Pw Search Success View</title>
+</head>
+<body>
+	<script th:inline="javascript">/*<![CDATA[*/alert('인증번호는 [[${cNum}]] 입니다.');/*]]>*/</script>
+<div align="center">
+	<h1 class="text-primary">Pw Search Success View</h1>
+	<hr>
+	<form action="/member/cNumCheck_PW" method="post">
+	<div>
+		<label class="text-primary">인증번호</label><input type = "number" name = "cNumCheck" placeholder="인증번호를 입력해주세요.">
+		<div id="timer">남은 시간: 05:00</div>
+		<input type = "hidden" th:name = "cNum" th:value="${cNum}">
+		<input type = "hidden" th:name = "memberId" th:value="${memberId}">
+	</div>
+	<button class="btn btn-primary" type = "submit">확인</button>
+	</form>
+</div>
+<script type="text/javascript">
+const form = document.querySelector('form');
+const input = document.querySelector('#auth-code');
+const timeLimit = 5*60*1000; // 5분
+const timerElement = document.querySelector('#timer');
+
+let remainingTime = timeLimit;
+
+const timer = setInterval(() => {
+  remainingTime -= 1000;
+  if (remainingTime <= 0) {
+    alert('시간이 초과되었습니다.');
+    clearInterval(timer);
+    window.location.href="/member/idpwsearch";
+    input.disabled = true;
+  }
+  const minutes = Math.floor(remainingTime / 60000);
+  const seconds = Math.floor((remainingTime % 60000) / 1000);
+  timerElement.textContent = `남은 시간: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}, 1000);
+
+form.addEventListener('submit', (event) => {
+  clearInterval(timer);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Board Register View</title>
+<style type="text/css">
+.field-error {
+	color: red;
+}
+
+.field-error-input {
+	border-color: red;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h1 class="text-primary">Board Register View</h1>
+		<hr>
+		<form action="" method="post" th:object="${board}">
+			<table class="table table-bordered">
+				<tr>
+					<th>제목</th>
+					<td><input type="text" th:field="*{subject}"
+						th:errorclass="field-error-input">
+						<div class="field-error" th:errors="*{subject}"></div></td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td><input type="text" th:field="*{writer}"
+						th:errorclass="field-error-input" readonly="readonly">
+						<div class="field-error" th:errors="*{writer}"></div></td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td><textarea rows="20" cols="50" th:field="*{content}"
+							th:errorclass="field-error-input"></textarea>
+						<div class="field-error" th:errors="*{content}"></div></td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td><input type="password" th:field="*{password}"
+						th:errorclass="field-error-input">
+						<div class="field-error" th:errors="*{password}"></div></td>
+				</tr>
+				<tr>
+					<th colspan="2"><button type="submit" class="btn btn-success"
+							th:text="등록"></button>
+						<button type="button" class="btn btn-success" th:text="목록"
+							th:onclick="location.href='/board/list'"></button></th>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

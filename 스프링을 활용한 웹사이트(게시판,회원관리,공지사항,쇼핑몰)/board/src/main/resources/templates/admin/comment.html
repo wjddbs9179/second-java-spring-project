@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Admin Comment Detail View</title>
+</head>
+<body>
+	<div class="container">
+		<h1 class="text-primary">Admin Comment Detail View</h1>
+		<hr>
+		<table class="table table-striped">
+			<tr>
+				<td>번호</td>
+				<td th:text="${adminComment.id}"></td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td th:text="${adminComment.subject}"></td>
+			</tr>
+			<tr>
+				<td>작성날짜</td>
+				<td th:text="${adminComment.inputDate}"></td>
+			</tr>
+			<tr>
+				<td>회원아이디</td>
+				<td th:text="${adminComment.userId}"></td>
+			</tr>
+			<tr>
+				<td colspan="2">내용</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="width: 300px; height: 300px;"
+					th:text="${adminComment.content}"></td>
+			</tr>
+		</table>
+		<hr>
+		<div class="container">
+			<button type="button" class="btn btn-primary" th:text="목록"
+				th:onclick="|location.href='@{/board/list(page=${page},maxResult=${maxResult},field=${field},query=${query})}'|"></button>
+			<button th:if="${session.isAdmin}" type="button" class="btn btn-primary" th:text="수정"
+				th:onclick="|location.href='/admin/adminComment/update/${adminComment.id}'|"></button>
+			<button th:if="${session.isAdmin}" type="button" class="btn btn-primary" th:text="삭제"
+				th:onclick="|location.href='/admin/adminComment/delete/${adminComment.id}'|"></button>
+		</div>
+		<hr>
+		<div>
+		</div>
+	</div>
+</body>
+</html>

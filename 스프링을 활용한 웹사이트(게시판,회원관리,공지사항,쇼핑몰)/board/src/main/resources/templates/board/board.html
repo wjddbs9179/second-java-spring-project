@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Board Detail View</title>
+</head>
+<body>
+	<div class="container">
+		<h1 class="text-primary">Board Detail View</h1>
+		<hr>
+		<table class="table table-striped">
+			<tr>
+				<td>번호</td>
+				<td th:text="${board.id}"></td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td th:text="${board.subject}"></td>
+			</tr>
+			<tr>
+				<td>작성날짜</td>
+				<td th:text="${board.inputDate}"></td>
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td th:text="${board.writer}"></td>
+			</tr>
+			<tr>
+				<td>조회수</td>
+				<td th:text="${board.readCount}"></td>
+			</tr>
+			<tr>
+				<td colspan="2">내용</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="width: 300px; height: 300px;"
+					th:text="${board.content}"></td>
+			</tr>
+		</table>
+		<hr>
+			<div align="right">
+			<table>
+				<tr>
+					<td width="50">
+						<button th:if="${session.memberId==null}" type="button" class="btn btn-primary" th:onclick="alert('로그인이 필요한 기능입니다.');" th:text="|👍|"></button>
+						<button th:if="${session.memberId!=null&&!isLike}" type="button" class="btn btn-primary" th:onclick="|location.href='@{/board/likesUp/{id}(id=${board.id}, page=${page})}'|" th:text="|👍|"></button>
+						<button th:if="${session.memberId!=null&&isLike}" type="button"  class="btn btn-danger" th:onclick="|location.href='@{/board/likesDown/{id}(id=${board.id}, page=${page})}'|" th:text="|👍|"></button>
+					</td>
+					<td width="50">
+						<button th:if="${session.memberId==null}" type="button" class="btn btn-primary" th:onclick="alert('로그인이 필요한 기능입니다.');" th:text="|👎|"></button>
+						<button th:if="${session.memberId!=null&&!isDislike}" type="button" class="btn btn-primary" th:onclick="|location.href='@{/board/dislikesUp/{id}(id=${board.id}, page=${page})}'|" th:text="|👎|"></button>
+						<button th:if="${session.memberId!=null&&isDislike}" type="button" class="btn btn-danger" th:onclick="|location.href='@{/board/dislikesDown/{id}(id=${board.id}, page=${page})}'|" th:text="|👎|"></button>
+					</td>
+				</tr>
+				<tr>
+					<td th:text="${board.likes.size}"></td>
+					<td th:text="${board.dislikes.size}"></td>
+				</tr>
+			</table>
+			</div>
+		<hr>
+		<div class="container">
+			<button type="button" class="btn btn-primary" th:text="목록"
+				th:onclick="|location.href='@{/board/list(page=${page})}'|"></button>
+			<button th:if="${userId==board.writer}" type="button" class="btn btn-primary" th:text="수정"
+				th:onclick="|location.href='/board/update/${board.id}'|"></button>
+			<button th:if="${userId==board.writer}" type="button" class="btn btn-primary" th:text="삭제"
+				th:onclick="|location.href='/board/delete/${board.id}'|"></button>
+			<button th:if="${session.isAdmin}" type="button" class="btn btn-danger" th:text="|관리자 답글|"
+				th:onclick="|location.href='@{/adminComment/reg(boardId=${board.id},userId=${board.writer})}'|"></button>
+		</div>
+		<hr>
+		<div>
+		<table class="table">
+		<tr th:if="${prevBoard!=null}">
+			<th><label>이전글</label></th> <td><a th:href="|/board/board/${prevBoard.id}?page=${page}|" th:text="${prevBoard.subject}">테스트 제목</a></td>
+		</tr>
+		<tr th:if="${nextBoard!=null}">
+			<th><label>다음글</label></th> <td><a th:href="|/board/board/${nextBoard.id}?page=${page}|" th:text="${nextBoard.subject}">테스트 제목</a></td>
+		</tr>
+		</table>
+		</div>
+		<div>
+			<label>댓글</label>
+			<form action="/board/comment/reg" th:object="${comment}" method="post">
+				<input type="hidden" name="boardId" th:value="${board.id}">
+				<input type="hidden" name="page" th:value="${page}">
+				<input type="hidden" name="maxResult" th:value="${maxResult}">
+				<input type="hidden" name="field" th:value="${field}">
+				<input type="hidden" name="query" th:value="${query}">
+				<textarea rows="2" cols="80" th:field="*{content}"></textarea>
+				<button type="submit" class="btn btn-success" th:text="확인"></button>
+			</form>		
+		</div>
+		<div>
+			<div th:each="comment:${comments}">
+				<label th:text="|${comment.userId} ${#dates.format(comment.inputDate,'yyyy-MM-dd HH:mm')}|"></label>
+					<button class="btn btn-danger" th:if="${session.isAdmin}" type="button" th:onclick="|location.href='@{/comment/delete(boardId=${board.id},page=${page},maxResult=${maxResult},field=${field},query=${query},commentId=${comment.id})}'|" th:text="삭제"></button>
+				<div>
+				<p th:text="${comment.content}"></p> 
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

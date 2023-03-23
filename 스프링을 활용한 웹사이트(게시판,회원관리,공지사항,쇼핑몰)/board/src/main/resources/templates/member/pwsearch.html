@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Pw Search View</title>
+</head>
+<body>
+<hr>
+<div class="container">
+		<h1 class="text-primary">Pw Search View</h1>
+		<hr>
+		<form action="" method="post" th:object="${form}">
+			<label>아이디</label>
+			<div>
+				<input type="text" th:field="*{userId}">
+			</div>
+			<label>이름</label>
+			<div>
+				<input type="text" th:field="*{userName}">
+			</div>
+			<label>이메일</label>
+			<div>
+				<input type="email" th:field="*{email}">
+			</div>
+			<hr>
+			<div>
+				<button class="btn btn-success" type="submit" th:text="찾기"></button>
+				<button class="btn btn-warning" type="button" th:onclick="location.href='/member/home'" th:text="돌아가기"></button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

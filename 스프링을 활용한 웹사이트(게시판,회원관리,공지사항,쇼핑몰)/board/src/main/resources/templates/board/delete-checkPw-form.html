@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Delete CheckPw Form View</title>
+</head>
+<body>
+	<div class="container">
+		<h1>Delete CheckPw Form View</h1>
+		<hr>
+		<form action="" method="post">
+		<label>삭제하려면 비밀번호를 입력 해주세요.</label><br>
+		<input type="password" name="checkPw">
+		<button class="btn btn-success" th:text="확인"></button>
+		</form>
+		<hr>
+		<button class="btn btn-warning" th:text="취소" th:onclick="history.back();"></button>
+	</div>
+</body>
+</html>

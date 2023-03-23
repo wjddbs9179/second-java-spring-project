@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Cart Order View</title>
+</head>
+<body>
+	<div class="container">
+		<h1>Cart Order View</h1>
+		<hr>
+		<form action="" method="post">
+			<label>배송 받을 주소</label>
+			<div>
+				<input type="text" name="address">
+			</div>
+			<label>전화번호</label>
+			<div>
+				<input type="text" name="phone">
+			</div>
+			<button type="submit" th:text="결제하기" class="btn btn-success"></button>
+		</form>
+	</div>
+</body>
+</html>

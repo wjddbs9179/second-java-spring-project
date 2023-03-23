@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Product Detail View</title>
+</head>
+<body>
+	<div class="container">
+		<div align="right">
+			<a class="btn btn-warning" href="/shop/myCart">장바구니</a> <a
+				class="btn btn-warning" href="/shop/myOrders">내 주문</a>
+		</div>
+		<h1 class="text-primary">Product Detail View</h1>
+		<hr>
+		<table class="table">
+			<tr>
+				<th>상품명</th>
+				<td th:text="${product.name}"></td>
+			</tr>
+			<tr>
+				<th>가격</th>
+				<td th:text="${#numbers.formatInteger(product.price,3,'COMMA')}"></td>
+			</tr>
+			<tr th:if="${product.quantity<=5}">
+				<th>재고</th>
+				<td th:text="${product.quantity}"></td>
+			</tr>
+			<tr>
+				<th>상품이미지</th>
+				<td><img alt="" width="500" height="600"
+					th:src="|/shop/image/${product.imagePath}|"></td>
+			</tr>
+		</table>
+		<hr>
+		<button type="button" class="btn btn-warning" th:text="목록"
+			th:onclick="location.href='/shop/home'"></button>
+		<button th:if="${session.memberId==product.memberId}" type="button"
+			class="btn btn-warning" th:text="수정"
+			th:onclick="|location.href='/shop/product/update/${product.id}'|"></button>
+		<button th:if="${session.memberId==product.memberId}" type="button"
+			class="btn btn-danger" th:text="삭제"
+			th:onclick="|location.href='/shop/product/delete/${product.id}'|"></button>
+		<div th:if="${session.memberId!=null}" align="right">
+			<form action="/shop/cart/add" method="post">
+				<label>수량</label> <input type="hidden" name="productId"
+					th:value="${product.id}"> <input type="number"
+					name="quantity" value="1">
+				<button type="submit" class="btn btn-success" th:text="|장바구니 담기|"></button>
+			</form>
+			<hr>
+			<form th:action="|/shop/direct/order/${product.id}|" method="get">
+				<button type="submit" class="btn btn-success" th:text="|바로 주문하기|"></button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Payment View</title>
+</head>
+<body>
+<script>
+	var payment = confirm(/*<![CDATA[*/'전체가격은 [[${totalPrice}]] 입니다. 결제하시겠습니까?'/*]]>*/);
+	window.location.href="/shop/payment/success?payment="+payment;
+</script>
+</body>
+</html>

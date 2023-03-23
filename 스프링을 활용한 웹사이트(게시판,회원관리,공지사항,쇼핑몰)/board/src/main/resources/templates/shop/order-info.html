@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Order Info View</title>
+</head>
+<body>
+	<div class="container">
+		<h1 class="text-info">Order Info View</h1>
+		<hr>
+		<table class="table">
+			<tr>
+				<th>주문번호</th><td th:text="${order.id}"></td>
+			</tr>
+			<tr>
+				<th>배송지</th><td th:text="${order.address}"></td>
+			</tr>
+			<tr>
+				<th>상품 명</th><td th:text="${order.productName}"></td>
+			</tr>
+			<tr>
+				<th>수량</th><td th:text="${order.quantity}"></td>
+			</tr>
+			<tr>
+				<th>주문상태</th><td th:text="${order.status.korName}"></td>
+			</tr>
+			<tr>
+				<th>판매자 연락처</th><td th:text="${sellerPhone}"></td>
+			</tr>
+			<tr>
+				<th>구매자 연락처</th><td th:text="${order.phone}"></td>
+			</tr>
+		</table>
+		<button type="button" class="btn btn-warning" th:onclick="history.back();" th:text="뒤로가기"></button>
+	</div>
+</body>
+</html>

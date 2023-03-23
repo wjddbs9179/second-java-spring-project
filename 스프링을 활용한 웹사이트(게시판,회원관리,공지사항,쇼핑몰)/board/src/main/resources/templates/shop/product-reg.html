@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Product Register View</title>
+</head>
+<body>
+	<div class="container">
+		<h1 class="text-primary">Product Register View</h1>
+		<hr>
+		<form action="" method="post" th:object="${product}"
+			enctype="multipart/form-data">
+			<table class="table">
+				<tr>
+					<th>상품명</th>
+					<td><input type="text" th:field="*{name}"></td>
+				</tr>
+				<tr>
+					<th>사진첨부</th>
+					<td><input type="file" name="file"></td>
+				</tr>
+				<tr>
+					<th>가격</th>
+					<td><input type="number" th:field="*{price}"></td>
+				</tr>
+				<tr>
+					<th>수량</th>
+					<td><input type="number" th:field="*{quantity}"></td>
+				</tr>
+				<tr>
+				<th>카테고리</th>
+					<th><select name="category">
+							<option value="BOOK">도서</option>
+							<option value="CLOTH">의류</option>
+							<option value="FOOD">음식</option>
+					</select></th>
+				</tr>
+				<tr>
+					<th colspan="2">
+						<button type="submit" class="btn btn-success" th:text="등록"></button>
+						<button type="button" class="btn btn-warning" th:text="취소"
+							th:onclick="history.back();"></button>
+					</th>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

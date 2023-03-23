@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Update Success View</title>
+</head>
+<body>
+<script>
+	alert('수정되었습니다.');
+	var url = /*<![CDATA[*/"/board/board/"+[[${boardId}]]/*]]>*/;
+	window.location.href = url;
+</script>
+<h1>Update Success View</h1>
+<hr>
+</body>
+</html>

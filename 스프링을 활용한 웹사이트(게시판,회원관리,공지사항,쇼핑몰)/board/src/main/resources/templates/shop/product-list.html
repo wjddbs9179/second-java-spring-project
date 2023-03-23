@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Product List View</title>
+</head>
+<body>
+	<div class="container">
+		<div align="right">
+			<a th:if="${session.memberId!=null}" href="/member/logout">Logout</a><br>
+			<div align="right" th:if="${session.memberId!=null}">
+				<button type="button" class="btn btn-primary"
+					th:onclick="location.href='/member/info'">내 정보</button>
+			</div>
+		</div>
+		<div align="left">
+			<a href="/member/home">Member</a><br> <a href="/board/list">Board</a><br>
+			<a href="/shop/home">Shop</a><br> <a href="/notice/list">Notice</a>
+		</div>
+		<h1 class="text-primary">Product List View</h1>
+		<hr>
+		<div align="right">
+			<a class="btn btn-warning" href="/shop/myCart">장바구니</a>
+			<a class="btn btn-warning" href="/shop/myOrders">내 주문</a><br>
+		</div>
+		<div align="left">
+			<a th:if="${session.isSeller}" class="btn btn-warning" href="/shop/myProduct/order/list">내가 판매중인 물품 주문현황</a>
+		</div>
+		<hr>
+		<div>
+			<button type="button" class="btn btn-primary"
+				th:onclick="location.href='/shop/home?category=BOOK'" th:text="도서"></button>
+			<button type="button" class="btn btn-success"
+				th:onclick="location.href='/shop/home?category=CLOTH'" th:text="의류"></button>
+			<button type="button" class="btn btn-warning"
+				th:onclick="location.href='/shop/home?category=FOOD'" th:text="음식"></button>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-4" th:each="product, iterStat :${productList}">
+				<div class="card">
+					<a th:href="|/shop/product/${product.id}|"> <img
+						class="card-img-top" width="300" height="200"
+						th:src="|/shop/image/${product.imagePath}|" alt="Card image cap">
+					</a>
+					<div class="card-body">
+						<h5 class="card-title" th:text="${product.name}"></h5>
+						<p class="card-text"
+							th:text="${#numbers.formatInteger(product.price,3,'COMMA')}"></p>
+					</div>
+				</div>
+				<div th:if="${iterStat.count} %3 == 0"></div>
+			</div>
+		</div>
+		<div align="center">
+			<p>
+				<button class="btn btn-primary btn-xs" th:if="${page!=1}"
+					type="button">
+					<a style="color: white;"
+						th:href="|/shop/home?page=1&maxResult=${maxResult}&category=${category}|"
+						th:text="《"></a>
+				</button>
+				<button class="btn btn-primary btn-xs" th:if="${firstPage-1>0}"
+					type="button">
+					<a style="color: white;"
+						th:href="|/shop/home?page=${firstPage-1}&maxResult=${maxResult}&category=${category}|"
+						th:text="〈"></a>
+				</button>
+				<th:block th:each="num:${#numbers.sequence(firstPage,lastPage)}">
+					<a th:if="${page!=num}"
+						th:href="|/shop/home?page=${num}&maxResult=${maxResult}&category=${category}|"
+						th:text="|${num} |"></a>
+					<th:block th:if="${page==num}" th:text="|${num} |"></th:block>
+				</th:block>
+				<button class="btn btn-primary btn-xs" th:if="${lastPage<totalPage}"
+					type="button">
+					<a style="color: white;"
+						th:href="|/shop/home?page=${lastPage+1}&maxResult=${maxResult}&category=${category}|"
+						th:text="〉"></a>
+				</button>
+				<button class="btn btn-primary btn-xs" th:if="${page!=totalPage}"
+					type="button">
+					<a style="color: white;"
+						th:href="|/shop/home?page=${totalPage}&maxResult=${maxResult}&category=${category}|"
+						th:text="》"></a>
+				</button>
+			</p>
+		</div>
+
+
+
+		<hr>
+		<button th:if="${session.isSeller}" type="button"
+			class="btn btn-primary" th:text="|상품 등록|"
+			th:onclick="location.href='/shop/product/reg'"></button>
+	</div>
+</body>
+</html>
