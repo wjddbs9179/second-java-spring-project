@@ -2,7 +2,7 @@
 두번 째 개인프로젝트(웹 사이트)
 
 사용 기술
-java, springboot, jpa, h2database, bootstrap, javascript
+java, springboot, jpa, h2database, bootstrap, javascript, thymeleaf
 
 주요 기능
 
